@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  // position: absolute;
+  width: 100%;
+
+  .navbar-menu, &.is-transparent {
+    background-color: transparent;
+    background-image: none;
+  }
+
+  .navbar-menu {
+    display: flex;
+  }
+
+  .navbar-item img {
+    max-height: 4rem;
+  }
+
+  .navbar-brand {
+    // background-color: #A1C6C8;
+
+    margin-top: 3em;
+
+    @media only screen and (min-width: 885px) {
+      margin-top: auto;
+    }    
+  }
+}

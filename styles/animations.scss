@@ -1,0 +1,44 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin animate ($name, $duration, $delay, $iterationCount) {
+  animation-name: $name;
+  animation-direction: normal;
+  animation-delay: #{$delay}ms;
+  animation-duration: #{$duration}ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@mixin fadeIn ($delay) {
+  opacity: 0;
+  @include animate(fadeIn, 2000, $delay, 1);
+}
+
+@mixin rotate ($count) {
+  @include animate(rotate, 250, 0, 3);
+}

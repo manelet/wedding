@@ -1,0 +1,28 @@
+{
+  "name": "wedding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel *.html --no-cache",
+    "build": "parcel build *.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manelgarcia/wedding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manelgarcia/wedding/issues"
+  },
+  "homepage": "https://github.com/manelgarcia/wedding#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.9"
+  },
+  "dependencies": {
+    "bulma": "^0.7.5"
+  }
+}

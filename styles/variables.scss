@@ -1,0 +1,17 @@
+$family-sans-serif: "Circular", sans-serif;
+// $text: white;
+// $text-strong: white;
+// $dark: white;
+$navbar-item-color: white;
+// $title-color: white;
+$link: white;
+$diamondSize: 60;
+
+$palette: (
+    primary: rgb(161, 198, 200),
+    text: #222
+);
+
+@function color ($type) {
+  @return map-get($palette, $type);
+}
