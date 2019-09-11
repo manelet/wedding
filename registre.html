@@ -88,84 +88,109 @@
       </div>
     </div>
   </section>
-<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/airtable@0.7.1/build/airtable.browser.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-147636948-1"></script>
 <script>
-    var MAX = 4
-    var num = 1
-    var numFields = ['nens']
-    var btnAdd = document.querySelectorAll('.btn-add')[0]
-    var btnSubmit = document.querySelectorAll('.submit')[0]
-    var Airtable = window.require('airtable');
-    var base = new Airtable({ apiKey: 'keyJx8PJSXYLOK7Vu' }).base('appR6ovkJZYunCxxs');    
-    var Convidat = {
-      nom: '',
-      email: '',
-      numAcompanyants: 0,
-      acompanyants: '',
-      nens: 0,
-      pagat: 0,
-      confirmat: 1,
-      categoria: '',
-      familia: ''
-    }
-    
-    function addConvidat (data) {
-      btnSubmit.classList.toggle('is-loading')
-      var convidatObj = Object.assign(Convidat, data)
-      base('convidats-web').create(convidatObj, function(err, record) {
-        btnSubmit.classList.toggle('is-loading')
-        if (err) { console.log(err); return; }
-        window.location.href = 'dades.html'
-      });      
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-147636948-1');
+  
+  var MAX = 4
+  var num = 1
+  var numFields = ['nens']
+  var btnAdd = document.querySelectorAll('.btn-add')[0]
+  var btnSubmit = document.querySelectorAll('.submit')[0]
+  var Airtable = window.require('airtable');
+  var base = new Airtable({ apiKey: 'keyJx8PJSXYLOK7Vu' }).base('appR6ovkJZYunCxxs');    
+  var Convidat = {
+    nom: '',
+    email: '',
+    numAcompanyants: 0,
+    acompanyants: '',
+    nens: 0,
+    pagat: 0,
+    confirmat: 1,
+    categoria: '',
+    familia: ''
+  }
+  
+  if (window.location.search === '') {    
+    gtag('event', 'QR Scan', {
+      'event_category': 'Events',
+      'event_label': 'qr'
+    })
+  }
+
+  function addConvidatCallback (err, record) {
+    btnSubmit.classList.toggle('is-loading')
+
+    if (err) {
+      return console.error(err)
     }
 
-    function addAcompanyant () {
-      var fields = document.querySelectorAll('.acompanyant')
-      var clone = fields[0].cloneNode(true)
-      var control = clone.querySelectorAll('.control')[0]
-      var btnAdd = clone.querySelectorAll('.btn-add')[0]
-      control.removeChild(btnAdd)
-      clone.classList.remove('acompanyant-1')
-      clone.classList.add('acompanyant-' + (num + 1))
-      clone.querySelectorAll('label')[0].innerText = 'Acompanyant ' + (num + 1)
-      var input = clone.querySelectorAll('input')[0]
-      input.value = ''
-      input.name = 'acompanyant-' + (num + 1)
-      input.placeholder = 'Nom i cognoms acompanyant ' + (num + 1)      
-      fields[num - 1].parentNode.insertBefore(clone, fields[num - 1].nextSibling);      
-    }
-
-    btnAdd.addEventListener('click', function (e) {      
-      e.preventDefault()
-      
-      if (num >= MAX) {
-        return false
-      }
-      addAcompanyant()
-      num++
+    gtag('event', 'Confirmació convidat', {
+      'event_category': 'Events',
+      'event_label': 'Confirmació',
+      'value': JSON.stringify(record)
     })
     
-    document.querySelectorAll('form')[0].addEventListener('submit', function (e) {
-      e.preventDefault()
-      var form = document.querySelectorAll('form')[0]
-      var numAcompanyants = 0
-      var acompanyants = ''
-      var values = Object.values(form).reduce((obj, field) => {
-        if (field.name && field.name !== '') {
-          if (field.name.includes('acompanyant')) {
-            numAcompanyants++
-            acompanyants = acompanyants + field.value  + ', '
-          } else {
-            obj[field.name] = numFields.includes(field.name) ? Number(field.value) : field.value
-          }
+    window.location.href = 'dades.html'
+  }
+
+  function addConvidat (data) {
+    btnSubmit.classList.toggle('is-loading')
+    var convidatObj = Object.assign(Convidat, data)
+    base('convidats-web').create(convidatObj, addConvidatCallback);      
+  }
+
+  function addAcompanyant () {
+    var fields = document.querySelectorAll('.acompanyant')
+    var clone = fields[0].cloneNode(true)
+    var control = clone.querySelectorAll('.control')[0]
+    var btnAdd = clone.querySelectorAll('.btn-add')[0]
+    control.removeChild(btnAdd)
+    clone.classList.remove('acompanyant-1')
+    clone.classList.add('acompanyant-' + (num + 1))
+    clone.querySelectorAll('label')[0].innerText = 'Acompanyant ' + (num + 1)
+    var input = clone.querySelectorAll('input')[0]
+    input.value = ''
+    input.name = 'acompanyant-' + (num + 1)
+    input.placeholder = 'Nom i cognoms acompanyant ' + (num + 1)      
+    fields[num - 1].parentNode.insertBefore(clone, fields[num - 1].nextSibling);      
+  }
+
+  btnAdd.addEventListener('click', function (e) {      
+    e.preventDefault()
+    
+    if (num >= MAX) {
+      return false
+    }
+    addAcompanyant()
+    num++
+  })
+  
+  document.querySelectorAll('form')[0].addEventListener('submit', function (e) {
+    e.preventDefault()
+    var form = document.querySelectorAll('form')[0]
+    var numAcompanyants = 0
+    var acompanyants = ''
+    var values = Object.values(form).reduce((obj, field) => {
+      if (field.name && field.name !== '') {
+        if (field.name.includes('acompanyant')) {
+          numAcompanyants++
+          acompanyants = acompanyants + field.value  + ', '
+        } else {
+          obj[field.name] = numFields.includes(field.name) ? Number(field.value) : field.value
         }
-        return obj
-      }, {})
+      }
+      return obj
+    }, {})
 
-      addConvidat(Object.assign(values, { numAcompanyants: numAcompanyants, acompanyants: acompanyants }))  
-    })
+    addConvidat(Object.assign(values, { numAcompanyants: numAcompanyants, acompanyants: acompanyants }))  
+  })
 
-  </script>
+</script>
 </body>
 </html>

@@ -101,11 +101,16 @@
       }
     </script>
   </div>
-
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbv85hrAcQGNVnmmRlS_RNRqQpSQE9frA&callback=initMap"></script> -->
+  -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147636948-1"></script>
   <script>
     AOS.init();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-147636948-1');
   </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbv85hrAcQGNVnmmRlS_RNRqQpSQE9frA&callback=initMap"></script> -->
 </body>
 </html>
