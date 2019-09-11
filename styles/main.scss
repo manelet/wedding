@@ -18,9 +18,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  background-attachment: fixed;
   background-color: color('primary');
   color: white;
+
+  @media screen and (min-width: 768px) {
+    background-attachment: fixed;
+  }
 
   .title {
     color: white;
