@@ -28,6 +28,10 @@
   .title {
     color: white;
   }
+
+  .container {
+    padding-top: 5em;
+  }
 }
 
 .pre-h1 {
@@ -128,7 +132,7 @@ div.title {
 }
 
 .content-festa {
-  min-height: 60vh;
+  min-height: 450px;
   display: flex;
   align-items: center;
 
@@ -143,6 +147,14 @@ div.title {
 
   img {
     z-index: 1;
+  }
+
+  @media screen and (max-width: 364px) {
+    min-height: 525px;
+  }
+
+  @media screen and (min-width: 768px) {
+    min-height: 600px;
   }
 }
 
